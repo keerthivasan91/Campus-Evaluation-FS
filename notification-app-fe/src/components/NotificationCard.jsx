@@ -52,41 +52,26 @@ export function NotificationCard({ notification, isViewed = false, onClick, rank
     <Card
       elevation={0}
       sx={{
-        position: "relative",
-        overflow: "hidden",
         border: "1px solid",
         borderColor: highlight ? "rgba(15, 118, 110, 0.35)" : "rgba(16, 33, 42, 0.08)",
-        background: highlight
-          ? "linear-gradient(180deg, rgba(15, 118, 110, 0.08), rgba(255, 255, 255, 0.98))"
-          : "rgba(255, 255, 255, 0.96)",
+        backgroundColor: highlight ? "rgba(15, 118, 110, 0.06)" : "white",
         opacity: viewed ? 0.84 : 1,
-        transition: "transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease",
-        boxShadow: highlight ? "0 16px 40px rgba(15, 118, 110, 0.12)" : "0 10px 28px rgba(16, 33, 42, 0.06)",
+        transition: "transform 160ms ease, box-shadow 160ms ease",
+        boxShadow: highlight ? "0 10px 24px rgba(15, 118, 110, 0.12)" : "0 8px 20px rgba(16, 33, 42, 0.05)",
         "&:hover": {
           transform: "translateY(-2px)",
-          boxShadow: "0 20px 48px rgba(16, 33, 42, 0.1)",
+          boxShadow: "0 12px 28px rgba(16, 33, 42, 0.08)",
         },
       }}
     >
       <CardActionArea onClick={() => onClick?.(notification)} sx={{ p: 2 }}>
         <Box sx={{ display: "flex", gap: 2, alignItems: "flex-start" }}>
-          <Box
-            sx={{
-              width: 6,
-              alignSelf: "stretch",
-              borderRadius: 999,
-              bgcolor: styles.color,
-              opacity: highlight ? 1 : 0.7,
-            }}
-          />
-
           <Avatar
             sx={{
-              width: 46,
-              height: 46,
+              width: 42,
+              height: 42,
               bgcolor: styles.background,
               color: styles.color,
-              fontWeight: 800,
               flexShrink: 0,
             }}
           >
@@ -99,11 +84,7 @@ export function NotificationCard({ notification, isViewed = false, onClick, rank
                 <Typography variant="subtitle1" fontWeight={800} sx={{ lineHeight: 1.2 }}>
                   {notification.title}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ mt: 0.5, lineHeight: 1.55, maxWidth: 780 }}
-                >
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5, lineHeight: 1.55, maxWidth: 780 }}>
                   {notification.message}
                 </Typography>
               </Box>

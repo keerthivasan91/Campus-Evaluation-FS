@@ -84,25 +84,25 @@ export function NotificationsPage() {
   const unreadCount = visibleNotifications.filter((notification) => !notification.isRead && !viewedIds.has(notification.id)).length;
   const viewedCount = visibleNotifications.length - unreadCount;
 
-  const handleFilterChange = (newFilter) => {
+  function handleFilterChange(newFilter) {
     setFilter(newFilter);
     setPage(1);
-  };
+  }
 
-  const handleLimitChange = (event) => {
+  function handleLimitChange(event) {
     setLimit(Number(event.target.value));
     setPage(1);
-  };
+  }
 
-  const handleTopNChange = (event) => {
+  function handleTopNChange(event) {
     setTopN(Number(event.target.value));
-  };
+  }
 
-  const handlePageChange = (_, newPage) => {
+  function handlePageChange(_, newPage) {
     setPage(newPage);
-  };
+  }
 
-  const handleViewed = (notification) => {
+  function handleViewed(notification) {
     setViewedIds((current) => {
       const next = new Set(current);
 
@@ -110,11 +110,11 @@ export function NotificationsPage() {
 
       return next;
     });
-  };
+  }
 
-  const handleRefresh = () => {
+  function handleRefresh() {
     setRefreshKey((current) => current + 1);
-  };
+  }
 
   const summaryLabel = activeTab === 0 ? `${allFeed.total ?? visibleNotifications.length} total loaded` : `${priorityFeed.total ?? visibleNotifications.length} unread candidates`;
 
@@ -130,8 +130,6 @@ export function NotificationsPage() {
       <Paper
         elevation={0}
         sx={{
-          overflow: "hidden",
-          background: "linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 246, 240, 0.98))",
           border: "1px solid rgba(16, 33, 42, 0.08)",
           p: { xs: 2.25, sm: 3 },
           mb: 2.5,
@@ -154,7 +152,7 @@ export function NotificationsPage() {
                 display: "grid",
                 placeItems: "center",
                 borderRadius: 3,
-                bgcolor: "rgba(15, 118, 110, 0.12)",
+                bgcolor: "rgba(15, 118, 110, 0.1)",
                 color: "primary.main",
               }}
             >
@@ -207,7 +205,7 @@ export function NotificationsPage() {
               sx={{
                 p: 2,
                 borderRadius: 3,
-                bgcolor: "rgba(255,255,255,0.8)",
+                bgcolor: "rgba(255,255,255,0.85)",
               }}
             >
               <Typography variant="overline" color="text.secondary">
@@ -223,7 +221,7 @@ export function NotificationsPage() {
               sx={{
                 p: 2,
                 borderRadius: 3,
-                bgcolor: "rgba(255,255,255,0.8)",
+                bgcolor: "rgba(255,255,255,0.85)",
               }}
             >
               <Box

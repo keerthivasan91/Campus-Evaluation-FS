@@ -148,23 +148,33 @@ function buildHeaders() {
 	return headers;
 }
 
+function firstDefined(raw, keys, fallback) {
+	for (const key of keys) {
+		if (raw[key] !== undefined && raw[key] !== null && raw[key] !== "") {
+			return raw[key];
+		}
+	}
+
+	return fallback;
+}
+
 function normalizeNotification(raw, index = 0) {
-	const createdAt = raw.createdAt ?? raw.created_at ?? raw.Timestamp ?? raw.timestamp ?? new Date().toISOString();
-	const notificationType = raw.notificationType ?? raw.notification_type ?? raw.Type ?? raw.type ?? "Event";
-	const message = raw.message ?? raw.body ?? raw.Message ?? raw.description ?? "No message provided.";
-	const title = raw.title ?? raw.subject ?? raw.Title ?? raw.notificationTitle ?? notificationType;
+	const createdAt = firstDefined(raw, ["createdAt", "created_at", "Timestamp", "timestamp"], new Date().toISOString());
+	const notificationType = firstDefined(raw, ["notificationType", "notification_type", "Type", "type"], "Event");
+	const message = firstDefined(raw, ["message", "body", "Message", "description"], "No message provided.");
+	const title = firstDefined(raw, ["title", "subject", "Title", "notificationTitle"], notificationType);
 
 	return {
-		id: raw.id ?? raw.notificationId ?? raw.notification_id ?? `${createdAt}-${index}`,
-		studentId: raw.studentId ?? raw.studentID ?? raw.student_id ?? null,
+		id: firstDefined(raw, ["id", "notificationId", "notification_id"], `${createdAt}-${index}`),
+		studentId: firstDefined(raw, ["studentId", "studentID", "student_id"], null),
 		title,
 		message,
 		notificationType,
-		isRead: Boolean(raw.isRead ?? raw.read ?? raw.viewed ?? raw.is_read),
+		isRead: Boolean(firstDefined(raw, ["isRead", "read", "viewed", "is_read"], false)),
 		createdAt,
-		updatedAt: raw.updatedAt ?? raw.updated_at ?? createdAt,
-		priority: Number(raw.priority ?? 1),
-		channel: raw.channel ?? raw.deliveryChannel ?? "in_app",
+		updatedAt: firstDefined(raw, ["updatedAt", "updated_at"], createdAt),
+		priority: Number(firstDefined(raw, ["priority"], 1)),
+		channel: firstDefined(raw, ["channel", "deliveryChannel"], "in_app"),
 	};
 }
 
