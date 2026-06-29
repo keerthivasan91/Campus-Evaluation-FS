@@ -1,0 +1,25 @@
+:root {
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.18), transparent 32%),
+    radial-gradient(circle at top right, rgba(194, 65, 12, 0.14), transparent 28%),
+    linear-gradient(180deg, #f7f2eb 0%, #f3efe8 52%, #efe8dc 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
